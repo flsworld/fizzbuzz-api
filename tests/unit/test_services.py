@@ -65,3 +65,14 @@ def test_compute_fizzbuzz_with_2_4():
 
     expected = "1,fizz,3,fizzbuzz,5,fizz,7,fizzbuzz"
     assert res == expected
+
+
+def test_compute_fizzbuzz_with_a_zero_as_input():
+    int1 = 2
+    int2 = 0
+    limit = 8
+    str1 = "fizz"
+    str2 = "buzz"
+
+    with pytest.raises(CannotCompute):
+        services.compute_fizzbuzz(int1, int2, limit, str1, str2)
