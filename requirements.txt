@@ -1,0 +1,13 @@
+# API
+fastapi==0.78.0
+pydantic==1.9.1
+uvicorn[standard]==0.17.6
+
+# Testing
+pytest==7.0.1
+requests==2.27.1
+pytest-spec==3.2.0
+pytest-cov==3.0.0
+
+# Tools
+pre-commit==2.17.0
