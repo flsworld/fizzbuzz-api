@@ -2,15 +2,18 @@ from src.fizzbuzz.service_layer.exceptions import CannotCompute
 
 
 def compute_fizzbuzz(int1: int, int2: int, limit: int, str1: str, str2: str) -> str:
+    if int1 == int2:
+        raise CannotCompute("'Multiple of' inputs are identical")
+
     output = []
     i = 1
     while i <= limit:
         if i % int1 == 0 and i % int2 == 0:
             output.append(str1 + str2)
-        elif i % int2 == 0:
-            output.append(str2)
         elif i % int1 == 0:
             output.append(str1)
+        elif i % int2 == 0:
+            output.append(str2)
         else:
             output.append(str(i))
         i += 1

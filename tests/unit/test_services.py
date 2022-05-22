@@ -42,3 +42,26 @@ def test_compute_fizzbuzz_with_null_limit():
     expected = ""
     assert res == expected
 
+
+def test_compute_fizzbuzz_with_same_int_in_input_should_raise_cannot_compute():
+    int1 = 3
+    int2 = 3
+    limit = 15
+    str1 = "fizz"
+    str2 = "buzz"
+
+    with pytest.raises(CannotCompute):
+        services.compute_fizzbuzz(int1, int2, limit, str1, str2)
+
+
+def test_compute_fizzbuzz_with_2_4():
+    int1 = 2
+    int2 = 4
+    limit = 8
+    str1 = "fizz"
+    str2 = "buzz"
+
+    res = services.compute_fizzbuzz(int1, int2, limit, str1, str2)
+
+    expected = "1,fizz,3,fizzbuzz,5,fizz,7,fizzbuzz"
+    assert res == expected
