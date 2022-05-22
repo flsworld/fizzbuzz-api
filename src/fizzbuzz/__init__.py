@@ -11,8 +11,3 @@ def get_application():
 
 app = get_application()
 app.include_router(api_router, prefix=settings.API_PREFIX)
-
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
