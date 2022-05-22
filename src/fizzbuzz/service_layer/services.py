@@ -3,7 +3,7 @@ from src.fizzbuzz.service_layer.exceptions import CannotCompute
 
 def compute_fizzbuzz(int1: int, int2: int, limit: int, str1: str, str2: str) -> str:
     if int1 == int2:
-        raise CannotCompute("'Multiple of' inputs are identical")
+        raise CannotCompute
 
     output = []
     i = 1

@@ -26,3 +26,18 @@ def test_compute_string_like_fizzbuzz():
     assert response.json() == {
         "computed_string": "1,2,fizz,4,buzz,fizz,7,8,fizz,buzz,11,fizz,13,14,fizzbuzz"
     }
+
+
+def test_compute_string_like_fizzbuzz_when_int_inputs_are_identical():
+    body = {
+        "int1": 3,
+        "int2": 3,
+        "limit": 15,
+        "str1": "fizz",
+        "str2": "buzz",
+    }
+
+    response = client.post("/api/compute", json=body)
+
+    assert response.status_code == 400
+    assert response.json() == {"error": "'Multiple of' inputs are identical"}

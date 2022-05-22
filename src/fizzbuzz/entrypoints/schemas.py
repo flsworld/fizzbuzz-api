@@ -7,7 +7,3 @@ class FizzBuzzIn(BaseModel):
     limit: int
     str1: str
     str2: str
-
-
-class FizzBuzzOut(BaseModel):
-    computed_string: str
