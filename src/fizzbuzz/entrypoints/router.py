@@ -13,4 +13,5 @@ async def root():
 
 @router.post("/compute", response_model=FizzBuzzOut, status_code=status.HTTP_200_OK)
 def compute_string(params: FizzBuzzIn):
-    return
+    computed_string = services.compute_fizzbuzz(**params.dict())
+    return {"computed_string": computed_string}
