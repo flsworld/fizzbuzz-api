@@ -19,3 +19,6 @@ coverage.xml
 
 # Pycharm
 .idea
+
+# Environments
+.venv
