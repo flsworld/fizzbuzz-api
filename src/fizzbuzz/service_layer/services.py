@@ -6,6 +6,12 @@ from src.fizzbuzz.service_layer.exceptions import CannotCompute
 
 
 def compute_fizzbuzz(int1: int, int2: int, limit: int, str1: str, str2: str) -> str:
+    """
+    Compute a string like fizzbuzz where everything is parameterizable given
+      * int1 <-> str1
+      * int2 <-> str2
+      * limit
+    """
     if int1 == int2:
         raise CannotCompute("'Multiple of' inputs are identical")
     if 0 in (int1, int2):
@@ -27,6 +33,9 @@ def compute_fizzbuzz(int1: int, int2: int, limit: int, str1: str, str2: str) -> 
 
 
 def most_popular_request(cache: AbstractInMemoryCache) -> Optional[dict]:
+    """
+    Return the most hit request in cache if the cache is not empty
+    """
     cache = cache.store
     if not cache:
         return

@@ -15,6 +15,13 @@ async def root():
 
 @router.post("/compute", status_code=status.HTTP_200_OK)
 async def compute_string(params: FizzBuzzIn, response: Response):
+    """
+    Endpoint that compute a string like fizzbuzz given 5 parameters :
+      * 2 'multiple of' integers and their dedicated string representation
+      * 1 limit that end the computation loop
+
+    Each request is cached
+    """
     try:
         computed_string = services.compute_fizzbuzz(**params.dict())
     except CannotCompute as err:
@@ -27,6 +34,9 @@ async def compute_string(params: FizzBuzzIn, response: Response):
 
 @router.get("/popular-request", status_code=status.HTTP_200_OK)
 async def popular_request():
+    """
+    Endpoint that return the oldest most popular request
+    """
     most_hit = services.most_popular_request(InMemoryCache())
     if not most_hit:
         return {"warning": "No request made yet"}

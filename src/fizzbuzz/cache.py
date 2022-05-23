@@ -31,6 +31,10 @@ class InMemoryCache(AbstractInMemoryCache):
 
 
 async def update_cache(params: dict, cache: AbstractInMemoryCache):
+    """
+    Add or update count in cache for a given set of params in input. The chosen key format is a JSON
+    formatted string
+    """
     cache_key = json.dumps(params)
     if count := await cache.get(cache_key):
         count += 1
