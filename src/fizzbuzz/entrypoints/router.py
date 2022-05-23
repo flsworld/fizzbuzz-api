@@ -1,6 +1,6 @@
 from fastapi import APIRouter, status, Response
 
-from src.fizzbuzz.cache import update_cache, InMemoryCache
+from src.fizzbuzz.cache import update_cache, InMemoryCache, most_popular_request
 from src.fizzbuzz.entrypoints.schemas import FizzBuzzIn
 from src.fizzbuzz.service_layer import services
 from src.fizzbuzz.service_layer.exceptions import CannotCompute
@@ -37,7 +37,7 @@ async def popular_request():
     """
     Endpoint that return the oldest most popular request
     """
-    most_hit = services.most_popular_request(InMemoryCache())
+    most_hit = await most_popular_request(InMemoryCache())
     if not most_hit:
         return {"warning": "No request made yet"}
 

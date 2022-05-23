@@ -2,7 +2,6 @@ import pytest
 
 from src.fizzbuzz.service_layer import services
 from src.fizzbuzz.service_layer.exceptions import CannotCompute
-from src.fizzbuzz.service_layer.services import most_popular_request
 
 
 @pytest.mark.parametrize(
@@ -70,52 +69,3 @@ def test_compute_fizzbuzz_with_a_zero_as_input():
 
     with pytest.raises(CannotCompute):
         services.compute_fizzbuzz(int1, int2, limit, str1, str2)
-
-
-@pytest.mark.asyncio
-async def test_most_popular_request_should_return_most_hit_request(cache):
-    await cache.set('{"param1": 3, "param2": 5}', 3)
-    await cache.set('{"param1": 7, "param2": 12}', 30)
-    await cache.set('{"param1": 1, "param2": 2}', 300)
-
-    res = most_popular_request(cache)
-
-    expected = {"param1": 1, "param2": 2, "number_of_hit": 300}
-    assert res == expected
-
-
-@pytest.mark.asyncio
-async def test_most_popular_request_when_json_decode_error_should_return_most_hit_request(
-    cache,
-):
-    await cache.set("request1", 3)
-    await cache.set("request2", 30)
-    await cache.set("request3", 300)
-
-    res = most_popular_request(cache)
-
-    expected = {"request": "request3", "number_of_hit": 300}
-    assert res == expected
-
-
-@pytest.mark.asyncio
-async def test_most_popular_request_should_return_oldest_most_hit_request(cache):
-    await cache.set("request1", 4)
-    await cache.set("request2", 4)
-    await cache.set("request3", 4)
-
-    res = most_popular_request(cache)
-
-    # As no specific requirement were given, we chose to retrieve the oldest most used request
-    # Well ! since python3.7, dict keeps insertion order
-    # https://mail.python.org/pipermail/python-dev/2017-December/151283.html
-    expected = {"request": "request1", "number_of_hit": 4}
-    assert res == expected
-
-
-@pytest.mark.asyncio
-async def test_most_popular_request_when_cache_is_empty_should_return_none(cache):
-
-    res = most_popular_request(cache)
-
-    assert res is None
