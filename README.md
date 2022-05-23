@@ -1,4 +1,10 @@
-# fizzbuzz-api
+<div id="top">
+  <h1 align="center">FizzBuzz API</h1>
+</div>
+
+## Getting Started
+
+Use the following command to build and launch the container
 
 ``docker build -t fizzbuzz_image .``
 
@@ -9,6 +15,16 @@ docker run \
 -v $(pwd):/code 
 fizzbuzz_image
 ```
+
+If you need to run the container after having stopped it
+
+```docker start fizzbuzz```
+
+You should now be able to access the documentation at
+http://localhost:8000/docs
+
+
+## Usage
 
 ### Install pre-commit
 In order to remain focus on logic during development while not wasting time with trivial style nitpicks, 
@@ -30,3 +46,11 @@ Uninstall pre-commit
 ```sh
     pre-commit uninstall
 ```
+
+### Launch tests suite
+Open a shell in the web container and run all tests with 
+```sh
+    pytest
+```
+After having launched the tests, it is possible to see the coverage. To do so, 
+open the following file `fizzbuzz/htmlcov/index.html` in your browser
