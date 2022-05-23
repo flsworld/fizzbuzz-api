@@ -1,6 +1,7 @@
+import json
 from typing import Optional
 
-from src.fizzbuzz.cache import InMemoryCache
+from src.fizzbuzz.cache import AbstractInMemoryCache
 from src.fizzbuzz.service_layer.exceptions import CannotCompute
 
 
@@ -25,10 +26,18 @@ def compute_fizzbuzz(int1: int, int2: int, limit: int, str1: str, str2: str) -> 
     return ",".join(output)
 
 
-def most_popular_request() -> Optional[dict]:
-    cache = InMemoryCache.store
+def most_popular_request(cache: AbstractInMemoryCache) -> Optional[dict]:
+    cache = cache.store
     if not cache:
         return
 
     most_hit = max(cache, key=cache.get)
-    return {most_hit: cache.get(most_hit)}
+    try:
+        request = json.loads(most_hit)
+    except json.JSONDecodeError:
+        return {"request": most_hit, "number_of_hit": cache.get(most_hit)}
+    else:
+        return {
+            **request,
+            "number_of_hit": cache.get(most_hit)
+        }

@@ -11,7 +11,7 @@ def test_read_main():
     assert response.json() == {"message": "Hello World"}
 
 
-def test_compute_string_like_fizzbuzz():
+def test_compute_string_like_fizzbuzz(cache):
     body = {
         "int1": 3,
         "int2": 5,
@@ -28,7 +28,7 @@ def test_compute_string_like_fizzbuzz():
     }
 
 
-def test_compute_string_like_fizzbuzz_when_int_inputs_are_identical():
+def test_compute_string_like_fizzbuzz_when_int_inputs_are_identical(cache):
     body = {
         "int1": 3,
         "int2": 3,
@@ -43,7 +43,7 @@ def test_compute_string_like_fizzbuzz_when_int_inputs_are_identical():
     assert response.json() == {"error": "'Multiple of' inputs are identical"}
 
 
-def test_compute_string_like_fizzbuzz_when_zero_in_inputs():
+def test_compute_string_like_fizzbuzz_when_zero_in_inputs(cache):
     body = {
         "int1": 3,
         "int2": 0,
@@ -56,3 +56,30 @@ def test_compute_string_like_fizzbuzz_when_zero_in_inputs():
 
     assert response.status_code == 400
     assert response.json() == {"error": "'Multiple of' zero as input is not possible"}
+
+
+def test_popular_request(cache):
+    body = {
+        "int1": 3,
+        "int2": 5,
+        "limit": 15,
+        "str1": "fizz",
+        "str2": "buzz",
+    }
+    client.post("/api/compute", json=body)
+    client.post("/api/compute", json=body)
+    client.post("/api/compute", json=body)
+
+    response = client.get("api/popular-request")
+
+    assert response.status_code == 200
+    expected = {**body, "number_of_hit": 3}
+    assert response.json() == expected
+
+
+def test_popular_request_when_no_request_made_yet():
+
+    response = client.get("api/popular-request")
+
+    assert response.status_code == 200
+    assert response.json() == {"warning": "No request made yet"}

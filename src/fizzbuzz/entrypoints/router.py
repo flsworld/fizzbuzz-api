@@ -26,9 +26,9 @@ async def compute_string(params: FizzBuzzIn, response: Response):
 
 
 @router.get("/popular-request", status_code=status.HTTP_200_OK)
-async def popular_request():
-    most_hit = services.most_popular_request()
+async def popular_request(response: Response):
+    most_hit = services.most_popular_request(InMemoryCache())
     if not most_hit:
-        return {"error": "No request made yet"}
+        return {"warning": "No request made yet"}
 
     return most_hit

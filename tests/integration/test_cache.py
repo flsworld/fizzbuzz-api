@@ -2,19 +2,11 @@ import json
 
 import pytest
 
-from src.fizzbuzz.cache import update_cache, AbstractInMemoryCache
-
-
-class InMemoryCacheTest(AbstractInMemoryCache):
-    async def get(self, key: str):
-        return self.store.get(key)
-
-    async def set(self, key: str, count: int):
-        self.store[key] = count
+from src.fizzbuzz.cache import update_cache
 
 
 @pytest.mark.asyncio
-async def test_update_cache():
+async def test_update_cache(cache):
     params = {
         "int1": 77,
         "int2": 255,
@@ -22,7 +14,6 @@ async def test_update_cache():
         "str1": "bonjour",
         "str2": "aurevoir",
     }
-    cache = InMemoryCacheTest()
 
     await update_cache(params, cache)
 
@@ -32,7 +23,7 @@ async def test_update_cache():
 
 
 @pytest.mark.asyncio
-async def test_update_cache_when_called_multiple_times():
+async def test_update_cache_when_called_multiple_times(cache):
     params = {
         "int1": 2,
         "int2": 12,
@@ -40,7 +31,6 @@ async def test_update_cache_when_called_multiple_times():
         "str1": "fizz",
         "str2": "buzz",
     }
-    cache = InMemoryCacheTest()
 
     await update_cache(params, cache)
     await update_cache(params, cache)

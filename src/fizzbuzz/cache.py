@@ -11,6 +11,9 @@ class AbstractInMemoryCache:
     async def set(self, key: str, count: int):
         raise NotImplementedError
 
+    def clear(self):
+        raise NotImplementedError
+
 
 class InMemoryCache(AbstractInMemoryCache):
     _lock = Lock()
@@ -22,6 +25,9 @@ class InMemoryCache(AbstractInMemoryCache):
     async def set(self, key: str, count: int):
         async with self._lock:
             self.store[key] = count
+
+    def clear(self):
+        self.store.clear()
 
 
 async def update_cache(params: dict, cache: AbstractInMemoryCache):
