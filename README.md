@@ -4,9 +4,19 @@
 
 ## Getting Started
 
-Use the following command to build and launch the container
+### Installation
 
-``docker build -t fizzbuzz_image .``
+Clone the repo
+   ```sh
+   git clone https://github.com/flsworld/comment-rick-n-morty.git && cd fizzbuzz
+   ```
+
+Use the following command to :
+* build the container
+```
+docker build -t fizzbuzz_image .
+```
+* launch the container
 
 ```
 docker run \
@@ -16,12 +26,15 @@ docker run \
 fizzbuzz_image
 ```
 
-If you need to run the container after having stopped it
-
-```docker start fizzbuzz```
+If you need to run the container after having stopped it ```docker start fizzbuzz```
 
 You should now be able to access the documentation at
 http://localhost:8000/docs
+
+If you want to open a shell in the container, run the following command
+```
+docker exec -it fizzbuzz bash
+```
 
 
 ## Usage
