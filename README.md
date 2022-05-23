@@ -8,7 +8,7 @@
 
 Clone the repo
    ```sh
-   git clone https://github.com/flsworld/comment-rick-n-morty.git && cd fizzbuzz
+   git clone https://github.com/flsworld/fizzbuzz-api.git && cd fizzbuzz-api
    ```
 
 Use the following command to :
